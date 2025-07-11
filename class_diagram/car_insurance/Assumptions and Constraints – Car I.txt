@@ -1,0 +1,14 @@
+Assumptions and Constraints – Car Insurance ER Diagram
+
+Assumptions:
+1. Each customer can own one or more cars.
+2. Each car is owned by exactly one customer.
+3. Each car can have zero or more recorded accident entries.
+4. An accident record is uniquely identified and tied to one specific car.
+5. Customers are uniquely identified by a customer ID.
+
+Constraints:
+1. "Owns" is a 1:N relationship from Customer to Car.
+2. "Has_Accident" is a 1:N relationship from Car to Accident.
+3. Accident records must contain date, description, and location.
+4. A car may not have any accidents (i.e., zero accident history).

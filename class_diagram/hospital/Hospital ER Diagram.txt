@@ -1,0 +1,13 @@
+Hospital ER Diagram
+
+ Assumptions:
+1. Each patient can undergo multiple tests/examinations.
+2. Each examination is conducted by exactly one doctor.
+3. A doctor may conduct zero or more examinations.
+4. Patients and doctors are uniquely identified by their respective IDs.
+5. Each examination record stores date, type, result, and notes.
+
+Constraints:
+1. Examination is modeled as an entity linked to both Patient and Doctor.
+2. A patient can have no tests (e.g., upon initial registration).
+3. An examination must be associated with both a patient and a doctor.

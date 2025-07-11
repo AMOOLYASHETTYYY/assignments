@@ -1,0 +1,15 @@
+Registrar's Office ER Diagram
+
+Assumptions:
+1. A course can have multiple prerequisites (including none).
+2. A course offering is uniquely identified by course number, year, semester, and section number.
+3. A student may enroll in multiple course offerings over time.
+4. Each enrollment results in a grade (possibly nullable before grading).
+5. A course offering may be taught by one or more instructors.
+6. A student cannot enroll in the same course offering more than once.
+
+Constraints:
+1. "Enrolls" is a many-to-many relationship with a relationship attribute `grade`.
+2. "Teaches" is a many-to-many relationship between Instructor and CourseOffering.
+3. Prerequisites are modeled as a recursive many-to-many relationship on Course.
+4. A course must have at least one offering to be active.

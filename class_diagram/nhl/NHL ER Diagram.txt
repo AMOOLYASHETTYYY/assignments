@@ -1,0 +1,15 @@
+ NHL ER Diagram
+
+Assumptions:
+1. Each team has exactly one captain, who is also a player on the same team.
+2. A player belongs to only one team at any point in time.
+3. A team can have many players, but must have at least one.
+4. A player can have zero or more injury records.
+5. Each game involves exactly two distinct teams – one host and one guest.
+6. A game is uniquely identified by the date and participating teams.
+
+ Constraints:
+1. Captain is modeled as a 1:1 relationship between Team and Player.
+2. Game scores are represented as attributes within the Game entity.
+3. A player cannot play for multiple teams simultaneously.
+4. Each injury record is linked to exactly one player.
