@@ -1,0 +1,97 @@
+1) Fetch all the Customer Details along with the product names that the customer has ordered.
+
+
+2) Fetch Order_Id, Ordered_Date, Total Price of the order (product price*qty).
+
+
+3) Fetch the Customer Name, who has not placed any order
+
+
+4) Fetch the Product Details without any order(purchase)
+
+
+5) Fetch the Customer name along with the total Purchase Amount
+
+
+6) Fetch the Customer details, who has placed the first and last order
+
+
+7) Fetch the customer details , who has placed more number of orders
+
+
+8) Fetch the customer details, who has placed multiple orders in the same year
+
+
+9) Fetch the name of the month, in which more number of orders has been placed
+
+
+10) Fetch the maximum priced Ordered Product
+
+
+1.SELECT DISTINCT c.Customer_Id, c.Customer_Name, p.Product_Name
+FROM Customer c
+JOIN [Order] o ON c.Customer_Id = o.Customer_Id
+JOIN Order_Details od ON o.Order_Id = od.Order_Id
+JOIN Product p ON od.Product_Id = p.Product_Id;
+
+
+2.SELECT o.Order_Id, o.Ordered_Date,
+       SUM(p.Product_Price * od.Quantity) AS Total_Price
+FROM [Order] o
+JOIN Order_Details od ON o.Order_Id = od.Order_Id
+JOIN Product p ON od.Product_Id = p.Product_Id
+GROUP BY o.Order_Id, o.Ordered_Date;
+
+3.SELECT c.Customer_Name
+FROM Customer c
+LEFT JOIN [Order] o ON c.Customer_Id = o.Customer_Id
+WHERE o.Order_Id IS NULL;
+
+4.SELECT p.*
+FROM Product p
+LEFT JOIN Order_Details od ON p.Product_Id = od.Product_Id
+WHERE od.Order_Detail_Id IS NULL;
+
+5.SELECT c.Customer_Name, SUM(p.Product_Price * od.Quantity) AS Total_Purchase
+FROM Customer c
+JOIN [Order] o ON c.Customer_Id = o.Customer_Id
+JOIN Order_Details od ON o.Order_Id = od.Order_Id
+JOIN Product p ON od.Product_Id = p.Product_Id
+GROUP BY c.Customer_Name;
+
+6.  First Order
+SELECT TOP 1 c.*
+FROM Customer c
+JOIN [Order] o ON c.Customer_Id = o.Customer_Id
+ORDER BY o.Ordered_Date ASC;
+
+ Last Order
+SELECT TOP 1 c.*
+FROM Customer c
+JOIN [Order] o ON c.Customer_Id = o.Customer_Id
+ORDER BY o.Ordered_Date DESC;
+
+7.SELECT TOP 1 c.*, COUNT(o.Order_Id) AS Num_Orders
+FROM Customer c
+JOIN [Order] o ON c.Customer_Id = o.Customer_Id
+GROUP BY c.Customer_Id, c.Customer_Name
+ORDER BY Num_Orders DESC;
+
+8.SELECT DISTINCT c.*
+FROM Customer c
+JOIN [Order] o ON c.Customer_Id = o.Customer_Id
+GROUP BY c.Customer_Id, c.Customer_Name, YEAR(o.Ordered_Date)
+HAVING COUNT(o.Order_Id) > 1;
+
+9.SELECT DATENAME(MONTH, Ordered_Date) AS Order_Month, COUNT(*) AS Total_Orders
+FROM [Order]
+GROUP BY DATENAME(MONTH, Ordered_Date)
+ORDER BY Total_Orders DESC;
+
+10.SELECT TOP 1 p.*
+FROM Product p
+JOIN Order_Details od ON p.Product_Id = od.Product_Id
+ORDER BY p.Product_Price DESC;
+
+
+
